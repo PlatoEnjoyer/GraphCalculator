@@ -1,0 +1,1 @@
+  -L"C:/Users/user/Desktop/GraphCalc/lib/glfw-3.3.8.bin.WIN64"  -L"C:/Users/user/Desktop/GraphCalc/lib/glew-2.2.0"  "C:/Users/user/Desktop/GraphCalc/lib/glfw-3.3.8.bin.WIN64/libglfw3dll.a" "C:/Users/user/Desktop/GraphCalc/lib/glew-2.2.0/glew32.lib" -lopengl32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

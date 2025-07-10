@@ -1,0 +1,51 @@
+cmake_minimum_required(VERSION 3.14)
+project(DesmosClone LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Подключаем заголовки
+include_directories(${PROJECT_SOURCE_DIR}/include/muparser)
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/imgui)
+include_directories(${PROJECT_SOURCE_DIR}/imgui/backends)
+include_directories(${PROJECT_SOURCE_DIR}/src/utility_functions)
+
+# Добавляем исходники muParser
+file(GLOB MU_PARSER_SRC "${PROJECT_SOURCE_DIR}/src/muparser/*.cpp")
+add_definitions(-DMUPARSER_STATIC)
+
+# Добавляем исходники imgui
+file(GLOB IMGUI_SRC "${PROJECT_SOURCE_DIR}/imgui/*.cpp")
+set(IMGUI_BACKEND_SRC
+    ${PROJECT_SOURCE_DIR}/imgui/backends/imgui_impl_glfw.cpp
+    ${PROJECT_SOURCE_DIR}/imgui/backends/imgui_impl_opengl3.cpp
+)
+
+# Путь к библиотекам
+link_directories(${PROJECT_SOURCE_DIR}/lib/glfw-3.3.8.bin.WIN64)
+link_directories(${PROJECT_SOURCE_DIR}/lib/glew-2.2.0)
+
+
+# Создаём исполняемый файл
+add_executable(desmos_clone src/main.cpp ${MU_PARSER_SRC} ${IMGUI_SRC} ${IMGUI_BACKEND_SRC} src/utility_functions/grid_drawer.cpp 
+src/utility_functions/ui_manager.cpp)
+ 
+# Линкуемся с библиотеками
+target_link_libraries(desmos_clone PRIVATE
+    ${PROJECT_SOURCE_DIR}/lib/glfw-3.3.8.bin.WIN64/libglfw3dll.a
+    ${PROJECT_SOURCE_DIR}/lib/glew-2.2.0/glew32.lib
+    opengl32
+)
+
+add_custom_command(TARGET desmos_clone POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${PROJECT_SOURCE_DIR}/lib/glfw-3.3.8.bin.WIN64/glfw3.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}/glfw3.dll"
+)
+
+add_custom_command(TARGET desmos_clone POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${PROJECT_SOURCE_DIR}/lib/glew-2.2.0/glew32.dll"
+    "${CMAKE_CURRENT_BINARY_DIR}/glew32.dll"
+)

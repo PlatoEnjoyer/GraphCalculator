@@ -1,0 +1,3 @@
+C:/Users/user/Desktop/GraphCalc/build/CMakeFiles/desmos_clone.dir
+C:/Users/user/Desktop/GraphCalc/build/CMakeFiles/edit_cache.dir
+C:/Users/user/Desktop/GraphCalc/build/CMakeFiles/rebuild_cache.dir
